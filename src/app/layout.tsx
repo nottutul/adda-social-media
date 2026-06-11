@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import Navbar02Page from "@/components/navbar-02/navbar-02";
+
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,10 +39,15 @@ export default function RootLayout({
             enableSystem 
             disableTransitionOnChange
           >
-        <div className="">
-          <Navbar/>
+        
+        <div>
+          <Navbar02Page/>
         </div>
-          {children}
+        
+
+        <div>{children}</div>
+          
+
         </ThemeProvider>
         </body>
     </html>
