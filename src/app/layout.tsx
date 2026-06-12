@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Navbar02Page from "@/components/navbar-02/navbar-02";
+import { ClerkProvider } from "@clerk/nextjs";
 
 
 
@@ -33,23 +34,25 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col"> 
-        <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            enableSystem 
-            disableTransitionOnChange
-          >
-        
-        <div>
-          <Navbar02Page/>
-        </div>
-        
-
-        <div>{children}</div>
+        <ClerkProvider>
+          <ThemeProvider
+              attribute="class"
+              defaultTheme="sysyem"
+              enableSystem 
+              disableTransitionOnChange
+            >
+          
+          <div>
+            <Navbar02Page/>
+          </div>
           
 
-        </ThemeProvider>
-        </body>
+          <div>{children}</div>
+            
+
+          </ThemeProvider>
+        </ClerkProvider>
+      </body>
     </html>
   );
 }
