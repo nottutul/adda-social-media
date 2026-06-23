@@ -7,18 +7,21 @@ import React from 'react'
 
 const Home = () => {
   return (
-    <div className="flex gap-5 max-w-(--breakpoint-xl) mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="hidden xl:block w-[20%]"><LeftMenu/></div>
-      <div className="w-full lg:w-[70%] xl:w-[50%]">
+    <div className="">
+      <div className="flex gap-5 max-w-(--breakpoint-xl) mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="hidden xl:block w-[10%]"><LeftMenu/></div>
+      <div className="w-full lg:w-[70%] xl:w-[70%]">
         <div className='flex flex-col'>
           <AddPost/>
           <Feed/>
         </div>
       </div>
-      <div className="hidden lg:block w-[30%]"><RightMenu/></div> 
+      <div className="hidden lg:block w-[20%]"><RightMenu/></div> 
     </div>
+    </div>
+    
   )
-}
+}  
 
 export default Home
 
