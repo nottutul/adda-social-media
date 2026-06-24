@@ -40,13 +40,13 @@ const Post = () => {
                 {/* Like button */}
                 <button className='flex items-center gap-2 cursor-pointer bg-accent rounded-full px-4 py-1'>
                     <Heart className='w-5 h-5'/>
-                    <span>Likes</span>
+                    <p>123 <span className='hidden md:inline'>Likes</span></p>
                 </button>
                 
                 {/* Comment button */}
                 <button className='flex items-center gap-2 cursor-pointer bg-accent rounded-full px-4 py-1'>
                     <MessageCircle className='w-5 h-5'/>
-                    <span>Comment</span>
+                    <p>123 <span className='hidden md:inline'>Comments</span></p>
                 </button>
             </div>
 
@@ -55,7 +55,7 @@ const Post = () => {
                 {/* Share button */}
                 <button className='flex items-center gap-2'>
                     <Forward className='w-5 h-5 '/>
-                    <span>Share</span>
+                    <p>123 <span className='hidden md:inline'>Shares</span></p>
                 </button>
             </div>
         </div>

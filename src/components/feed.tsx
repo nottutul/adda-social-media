@@ -3,11 +3,11 @@ import Post from './post'
 
 const Feed = () => {
   return (
-    <div className='p-4 bg-card rounded-lg flex flex-col gap-12'>
-      <Post/>
-      <Post/>
-      <Post/>
-      <Post/>
+    <div className='rounded-lg flex flex-col gap-4'>
+      <div className='bg-card rounded-md p-4 shadow-md'><Post/></div>
+      <div className='bg-card rounded-md p-4 shadow-md'><Post/></div>
+      <div className='bg-card rounded-md p-4 shadow-md'><Post/></div>
+      <div className='bg-card rounded-md p-4 shadow-md'><Post/></div>
     </div>
   )
 }
