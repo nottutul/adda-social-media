@@ -1,10 +1,11 @@
 import React from 'react'
 import Image from 'next/image'
 import { CircleUserRound, Ellipsis, Forward, Heart, ImageOff, MessageCircle, Share2 } from 'lucide-react'
+import Comments from './comments'
 
 const Post = () => {
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col gap-2'>
         {/* User  */}
         <div className='flex items-center justify-between'>
             <div className='flex items-center gap-4'>
@@ -59,6 +60,9 @@ const Post = () => {
                 </button>
             </div>
         </div>
+
+        {/* Comments */}
+        <Comments/>
     </div>
   )
 }
