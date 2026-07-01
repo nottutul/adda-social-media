@@ -220,7 +220,7 @@ const AddPost = () => {
             onChange={(e) => setMessage(e.target.value)}
             disabled={isPosting}
             placeholder={`What's on your mind, ${user.firstName || "friend"}?`}
-            className="w-full border-none resize-none focus-visible:ring-0 focus-visible:ring-offset-0 px-0 pb-1 pt-1 min-h-18.75 text-base placeholder:text-muted-foreground/60 bg-transparent text-foreground shadow-none"
+            className="w-full border-none resize-none focus-visible:ring-0 focus-visible:ring-offset-0 px-2 pb-1 pt-1 min-h-18.75 text-base placeholder:text-muted-foreground/60 bg-transparent text-foreground shadow-none"
           />
         </div>
 

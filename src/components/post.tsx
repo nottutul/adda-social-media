@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import { CircleUserRound, Ellipsis, Forward, Heart, ImageOff, MessageCircle, Share2 } from 'lucide-react'
 import Comments from './comments'
+import { Button } from './ui/button'
 
 const Post = () => {
   return (
@@ -27,7 +28,7 @@ const Post = () => {
         {/* Post Description  */}
         <div className='flex flex-col gap-4'>
             <div className='w-full min-h-80 relative'>
-                <ImageOff className='w-full min-h-80'/>
+                <img src="https://images.pexels.com/photos/733864/pexels-photo-733864.jpeg" alt="" className='w-full min-h-80 object-cover rounded-lg'/> 
             </div> 
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim, consectetur facere. Eaque deserunt minus praesentium illo voluptas officiis vel voluptatibus, quasi labore, eveniet, sed fuga perspiciatis corporis rem ipsa. Natus?</p>
  
@@ -52,9 +53,9 @@ const Post = () => {
             </div>
 
             {/* Right side */}
-            <div className='flex items-center gap-4 bg-accent rounded-full px-4 py-1 cursor-pointer'>
+            <div className='flex items-center gap-4 bg-accent rounded-full px-4 py-1 '>
                 {/* Share button */}
-                <button className='flex items-center gap-2'>
+                <button className='flex items-center gap-2 cursor-pointer'>
                     <Forward className='w-5 h-5 '/>
                     <p>123 <span className='hidden md:inline'>Shares</span></p>
                 </button>
