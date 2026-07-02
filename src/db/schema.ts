@@ -1,23 +1,23 @@
 import { relations } from "drizzle-orm";
-import { integer, pgTable, timestamp, varchar } from "drizzle-orm/pg-core";
+import { integer, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
 export const usersTable = pgTable("users", {
-  id: varchar().primaryKey(),
-  username: varchar({ length: 255 }).notNull(),
-  email: varchar({ length: 255 }).notNull().unique(),
-  avatar: varchar({ length: 255 }),
-  cover: varchar({ length: 255 }),
-  bio: varchar({ length: 255 }),
-  location: varchar({ length: 255 }),
-  work: varchar({ length: 255 }),
-  school: varchar({ length: 255 }),
+  id: text("id").primaryKey(),
+  username: text("username").notNull(),
+  email: text("email").notNull().unique(),
+  avatar: text("avatar"),
+  cover: text("cover"), 
+  bio: text("bio"),
+  location: text("location"),
+  work: text("work"),
+  school: text("school"),
 });
 
 export const postsTable = pgTable("posts", {
-  id: varchar().primaryKey(),
-  userId: varchar().notNull().references(() => usersTable.id, { onDelete: "cascade" }),
-  desc: varchar({ length: 255 }).notNull(),
-  img: varchar({ length: 255 }),
+  id: text("id").primaryKey(),
+  userId: text("userId").notNull().references(() => usersTable.id, { onDelete: "cascade" }),
+  desc: text("desc"),
+  img: text("img"),
   likes: integer().notNull().default(0),
   comments: integer().notNull().default(0),
   shares: integer().notNull().default(0),
