@@ -12,7 +12,7 @@ export const usersTable = pgTable("users", {
   location: text("location"),
   work: text("work"),
   school: text("school"),
-});
+}); 
 
 export const postsTable = pgTable("posts", {
   id: text("id").primaryKey(),
