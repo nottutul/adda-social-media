@@ -6,9 +6,17 @@ import { Camera, ImageIcon } from 'lucide-react'
 import React from 'react'
 import Image from 'next/image'
 import UserProfile from '@/components/user-profile'
+import { db } from '@/index'
+import { usersTable } from '@/db/schema'
+import { eq } from 'drizzle-orm'
+import { notFound } from 'next/navigation'
 
 
-const ProfilePage = () => {
+const ProfilePage = async ({ params }: { params: Promise<{ username: string }> }) => {
+  const { username } = await params;
+  const user = await db.select().from(usersTable).where(eq(usersTable.username, username)).then(res => res[0]) || null;
+
+  if(!user) return notFound();
   
   return (
     <div className="">
@@ -16,7 +24,7 @@ const ProfilePage = () => {
         <div className="hidden xl:block w-[15%]"><LeftMenu type="profile"/></div>
           <div className="w-full lg:w-[70%] xl:w-[65%]">
             <div className='flex flex-col gap-6'> 
-              <UserProfile/>
+              <UserProfile user={user}/>
               <Feed/>
             </div>
           </div>

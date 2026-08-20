@@ -3,11 +3,24 @@ import ProfileCard from './profile-card'
 import Link from 'next/link'
 import { GraduationCap, ImageMinus, Newspaper, Settings, SquareActivity, Store } from 'lucide-react'
 import Ads from './ads'
+import { auth } from '@clerk/nextjs/server'
+import { db } from '@/index'
+import { usersTable } from '@/db/schema'
+import { eq } from 'drizzle-orm'
 
-const LeftMenu = ({type}: {type: 'home' | 'profile'}) => {
+const LeftMenu = async ({type}: {type: 'home' | 'profile'}) => {
+  let user = null;
+
+  if (type === 'home') {
+    const { userId } = await auth();
+    if (userId) {
+      user = await db.select().from(usersTable).where(eq(usersTable.id, userId)).then(res => res[0]) || null;
+    }
+  }
+
   return (
     <div className='flex flex-col gap-6'>
-      {type === 'home' && <ProfileCard/>}
+      {type === 'home' && <ProfileCard user={user}/>}
 
       <div className='flex flex-col gap-2 bg-card rounded-md p-4 shadow-md'>
         <Link href="#" className='flex items-center gap-2 p-2 hover:bg-muted rounded-md'>

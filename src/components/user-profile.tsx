@@ -4,8 +4,22 @@ import { Button } from './ui/button'
 import { ImageIcon } from 'lucide-react'
 import { useUser } from '@clerk/nextjs'
 
-const UserProfile = () => {
-    const {user} = useUser()
+interface UserProfileProps {
+  user: {
+    id: string;
+    username: string;
+    email: string;
+    firstName: string | null;
+    lastName: string | null;
+    avatar: string | null;
+    bio: string | null;
+    location: string | null;
+    work: string | null;
+    school: string | null;
+  } | null;
+}
+
+const UserProfile = ({user}: UserProfileProps) => {
   return (
     <div className='bg-card rounded-md p-4 shadow-md'>
                  {/* cover photo */}
@@ -25,8 +39,8 @@ const UserProfile = () => {
                 <div className="px-4">
                     {/* user image */}
                     <div className="h-24 w-24 rounded-full overflow-hidden relative -mt-12 border-4 border-card shadow-lg">
-                        {user?.imageUrl ? (
-                            <img src={user.imageUrl} alt="User" className="h-full w-full object-cover" />
+                        {user?.avatar ? (
+                            <img src={user.avatar} alt="User" className="h-full w-full object-cover" />
                         ) : (
                             <div className="h-full w-full bg-muted flex items-center justify-center font-semibold text-primary/75 text-xl">
                                 {(user?.firstName || "U")[0]} 
@@ -36,7 +50,7 @@ const UserProfile = () => {
                     <div>
                       {/* name, followers, following */}
                       <div className='mt-3'>
-                        <h1 className='text-2xl font-bold'>{user?.fullName}</h1>
+                        <h1 className='text-2xl font-bold'>{user?.firstName + " " + user?.lastName}</h1>
                         <p className='text-muted-foreground'>@{user?.username}</p>
                         <div className='flex gap-4 mt-2'>
                           <div className='flex items-center gap-1'>
