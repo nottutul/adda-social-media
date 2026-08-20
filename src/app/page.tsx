@@ -10,7 +10,7 @@ const Home = () => {
     <div className="">
       <div className="flex gap-3 max-w-(--breakpoint-xl) mx-auto px-2">
         <div className="hidden xl:block w-[15%]"><LeftMenu type='home'/></div>
-          <div className="w-full lg:w-[65%] xl:w-[65%]">
+          <div className="w-full lg:w-[65%] xl:w-[65%]"> 
             <div className='flex flex-col'>
               <AddPost/>
               <Feed/>

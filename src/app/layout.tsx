@@ -38,7 +38,7 @@ export default function RootLayout({
         <ClerkProvider>
           <ThemeProvider
               attribute="class"
-              defaultTheme="sysyem"
+              defaultTheme="system"
               enableSystem 
               disableTransitionOnChange
             >
