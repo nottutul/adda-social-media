@@ -3,9 +3,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
+import { createPost } from "@/actions/post";
 
 import { Textarea } from "@/components/ui/textarea";
-import AddPostSuccess from "./add-post/add-post-success";
 
 import AddPostAttachments, { Attachment } from "./add-post/add-post-attachments";
 import AddPostActions from "./add-post/add-post-actions";
@@ -14,6 +15,7 @@ const AddPost = () => {
   const { isSignedIn, user, isLoaded } = useUser();
   const [message, setMessage] = useState("");
   const [attachment, setAttachment] = useState<Attachment | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isPosting, setIsPosting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -95,6 +97,7 @@ const AddPost = () => {
         name: file.name,
         url: url,
       });
+      setSelectedFile(file);
     }
 
     if (fileInputRef.current) {
@@ -107,31 +110,57 @@ const AddPost = () => {
       URL.revokeObjectURL(attachment.url);
     }
     setAttachment(null);
+    setSelectedFile(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
-  const handlePostSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const fileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
+  const handlePostAction = async () => {
     if ((!message.trim() && !attachment) || message.length > 500) return;
 
     setIsPosting(true);
 
-    // Simulate database posting delay
-    setTimeout(() => {
-      setIsPosting(false);
+    try {
+      let imgData: string | null = null;
+      if (selectedFile) {
+        imgData = await fileToBase64(selectedFile);
+      } else if (attachment?.url && !attachment.url.startsWith("blob:")) {
+        imgData = attachment.url;
+      }
+
+      await createPost({
+        desc: message.trim() || null,
+        img: imgData,
+      });
+
+      toast.success("Post created successfully!");
       setMessage("");
-      
-      // Revoke blob URL after submit to clean up memory
+
       if (attachment && attachment.url.startsWith("blob:")) {
         URL.revokeObjectURL(attachment.url);
       }
       setAttachment(null);
+      setSelectedFile(null);
 
-      // Show temporary visual confirmation banner
-      setShowSuccess(true);
-      setTimeout(() => {
-        setShowSuccess(false);
-      }, 4000);
-    }, 1500);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    } catch (err) {
+      console.error("Error creating post:", err);
+      toast.error(err instanceof Error ? err.message : "Failed to create post.");
+    } finally {
+      setIsPosting(false);
+    }
   };
 
   const maxChars = 500;
@@ -140,11 +169,9 @@ const AddPost = () => {
 
   return (
     <div className="bg-card border border-border/40 shadow-xs rounded-xl p-4 md:p-5 mb-5 transition-all duration-300">
-      {/* Success Notification */}
-      {showSuccess && <AddPostSuccess onClose={() => setShowSuccess(false)} />}
-
+      
       {/* Editor Content */}
-      <form onSubmit={handlePostSubmit}> 
+      <form action={handlePostAction}> 
 
         {/* Text Input Area */}
         <div className="mb-3">
