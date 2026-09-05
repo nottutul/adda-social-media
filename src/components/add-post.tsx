@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import { createPost } from "@/actions/post";
+import { createPostAction } from "@/actions/post";
 
 import { Textarea } from "@/components/ui/textarea";
 
@@ -125,7 +125,7 @@ const AddPost = () => {
     });
   };
 
-  const handlePostAction = async () => {
+  const handlePost = async () => {
     if ((!message.trim() && !attachment) || message.length > 500) return;
 
     setIsPosting(true);
@@ -138,7 +138,7 @@ const AddPost = () => {
         imgData = attachment.url;
       }
 
-      await createPost({
+      await createPostAction({
         desc: message.trim() || null,
         img: imgData,
       });
@@ -171,7 +171,7 @@ const AddPost = () => {
     <div className="bg-card border border-border/40 shadow-xs rounded-xl p-4 md:p-5 mb-5 transition-all duration-300">
       
       {/* Editor Content */}
-      <form action={handlePostAction}> 
+      <form action={handlePost}> 
 
         {/* Text Input Area */}
         <div className="mb-3">

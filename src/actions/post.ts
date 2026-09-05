@@ -5,7 +5,7 @@ import { db } from "@/index"
 import { postsTable } from "@/db/schema"
 import { revalidatePath } from "next/cache"
 
-export async function createPost({ desc, img }: { desc?: string | null; img?: string | null }) {
+export async function createPostAction({ desc, img }: { desc?: string | null; img?: string | null }) {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
 
